@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stroke Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> <!-- Use a relative path -->
+    <script>
+        async function predictStroke() {
+            const age = parseFloat(document.getElementById('age').value);
+            const avgGlucoseLevel = parseFloat(document.getElementById('avg_glucose_level').value);
+            const bmi = parseFloat(document.getElementById('bmi').value);
+            const gender = parseInt(document.getElementById('gender').value);
+            const everMarried = parseInt(document.getElementById('ever_married').value);
+            const workType = parseInt(document.getElementById('work_type').value);
+            const residenceType = parseInt(document.getElementById('residence_type').value);
+            const smokingStatus = parseInt(document.getElementById('smoking_status').value);
+            const hypertension = parseInt(document.getElementById('hypertension').value);
+            const heartDisease = parseInt(document.getElementById('heart_disease').value);
+
+            if (isNaN(age) || isNaN(avgGlucoseLevel) || isNaN(bmi) || 
+                isNaN(gender) || isNaN(everMarried) || isNaN(workType) || 
+                isNaN(residenceType) || isNaN(smokingStatus) || 
+                isNaN(hypertension) || isNaN(heartDisease)) {
+                document.getElementById('result').innerText = 'Please fill in all fields correctly.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        age,
+                        avg_glucose_level: avgGlucoseLevel,
+                        bmi,
+                        gender,
+                        ever_married: everMarried,
+                        work_type: workType,
+                        residence_type: residenceType,
+                        smoking_status: smokingStatus,
+                        hypertension,
+                        heart_disease: heartDisease
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                document.getElementById('result').innerText = data.stroke ? 'Stroke: Yes' : 'Stroke: No';
+            } catch (error) {
+                document.getElementById('result').innerText = 'An error occurred: ' + error.message;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Stroke Prediction</h1>
+        <form>
+            <label for="age">Age:</label>
+            <input type="number" id="age" step="0.1" required>
+
+            <label for="avg_glucose_level">Average Glucose Level:</label>
+            <input type="number" id="avg_glucose_level" step="0.1" required>
+
+            <label for="bmi">BMI:</label>
+            <input type="number" id="bmi" step="0.1" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="0">Female</option>
+                <option value="1">Male</option>
+            </select>
+
+            <label for="ever_married">Ever Married:</label>
+            <select id="ever_married" required>
+                <option value="" disabled selected>Select Marital Status</option>
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+            <label for="work_type">Work Type:</label>
+            <select id="work_type" required>
+                <option value="" disabled selected>Select Work Type</option>
+                <option value="0">Children</option>
+                <option value="1">Govt_job</option>
+                <option value="2">Never_worked</option>
+                <option value="3">Private</option>
+                <option value="4">Self-employed</option>
+            </select>
+
+            <label for="residence_type">Residence Type:</label>
+            <select id="residence_type" required>
+                <option value="" disabled selected>Select Residence Type</option>
+                <option value="0">Rural</option>
+                <option value="1">Urban</option>
+            </select>
+
+            <label for="smoking_status">Smoking Status:</label>
+            <select id="smoking_status" required>
+                <option value="" disabled selected>Select Smoking Status</option>
+                <option value="0">Unknown</option>
+                <option value="1">Never smoked</option>
+                <option value="2">Smokes</option>
+                <option value="3">Formerly smoked</option>
+            </select>
+
+            <label for="hypertension">Hypertension:</label>
+            <select id="hypertension" required>
+                <option value="" disabled selected>Select Hypertension Status</option>
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+            <label for="heart_disease">Heart Disease:</label>
+            <select id="heart_disease" required>
+                <option value="" disabled selected>Select Heart Disease Status</option>
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+
+            <button type="button" onclick="predictStroke()">Predict Stroke</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+</body>
+</html>
