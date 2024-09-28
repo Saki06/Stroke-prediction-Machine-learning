@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>Stroke Prediction</title>
+
+    <!-- Embedded CSS for Styling -->
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .carousel-item img {
+            height: 450px;
+            object-fit: cover;
+        }
+
+        h5,
+        h2 {
+            color: #0056b3;
+            font-weight: bold;
+        }
+
+        .carousel-caption p {
+            font-size: 1.2rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .btn-primary {
+            background-color: #0056b3;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #004494;
+        }
+
+        .text-muted {
+            font-size: 1rem;
+        }
+
+        .text-danger {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .alert-success {
+            font-size: 1.2rem;
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .container {
+            padding: 30px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Welcome Alert -->
+    <div class="alert alert-success alert-dismissible fade show text-center mb-0" role="alert">
+        <strong>Welcome to Stroke Prediction Machine</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-warning" href="#">Stroke Prediction</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+        <!-- Carousel Section -->
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="../static/image/Predict.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Stroke prediction</h5>
+                  <p>In this project our top priority is to predict patient have stroke or not.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="../static/image/Predict.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Stroke prediction</h5>
+                    <p>In this project our top priority is to predict patient have stroke or not.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="../static/image/Predict.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Stroke prediction</h5>
+                    <p>In this project our top priority is to predict patient have stroke or not.</p>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+
+    <!-- Form Section -->
+    <div class="container">
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h2 class="fw-normal">Fill this form to predict stroke.</h2>
+            <p class="text-muted"><b>A stroke occurs when the blood supply to part of your brain is interrupted, preventing brain tissue from getting oxygen and nutrients. Brain cells begin to die in minutes.</b></p>
+            <p class="text-danger" id="predictionText"></p>
+        </div>
+        <form id="strokeForm">
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select class="form-select" id="gender" name="gender">
+                    <option value="0">-- select gender --</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                    <option value="3">Other</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="age" class="form-label">Enter Age</label>
+                <input type="text" class="form-control" id="age" name="age" placeholder="Age">
+            </div>
+            <div class="mb-3">
+                <label for="avg_glucose_level" class="form-label">Average Glucose Level</label>
+                <input type="text" class="form-control" id="avg_glucose_level" name="avg_glucose_level" placeholder="Avg Glucose Level">
+            </div>
+            <div class="mb-3">
+                <label for="bmi" class="form-label">Body Mass Index (BMI)</label>
+                <input type="text" class="form-control" id="bmi" name="bmi" placeholder="BMI">
+            </div>
+            <div class="mb-3">
+                <label for="ever_married" class="form-label">Ever Married</label>
+                <select class="form-select" id="ever_married" name="ever_married">
+                    <option value="0">-- select --</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="work_type" class="form-label">Work Type</label>
+                <select class="form-select" id="work_type" name="work_type">
+                    <option value="0">-- select --</option>
+                    <option value="1">Private</option>
+                    <option value="2">Self-employed</option>
+                    <option value="3">Government job</option>
+                    <option value="4">Children</option>
+                    <option value="5">Never worked</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="residence_type" class="form-label">Residence Type</label>
+                <select class="form-select" id="residence_type" name="residence_type">
+                    <option value="0">-- select --</option>
+                    <option value="1">Urban</option>
+                    <option value="2">Rural</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="smoking_status" class="form-label">Smoking Status</label>
+                <select class="form-select" id="smoking_status" name="smoking_status">
+                    <option value="0">-- select --</option>
+                    <option value="1">Formerly smoked</option>
+                    <option value="2">Never smoked</option>
+                    <option value="3">Smokes</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="hypertension" class="form-label">Hypertension</label>
+                <select class="form-select" id="hypertension" name="hypertension">
+                    <option value="0">-- select --</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="heart_disease" class="form-label">Heart Disease</label>
+                <select class="form-select" id="heart_disease" name="heart_disease">
+                    <option value="0">-- select --</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Predict Stroke</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Stroke Prediction. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-PHcW2MEtnI0zABT34vCt30hV59LCyq8K5e5HzEGK0tZK5F/ABvG6/4Qz+o9C+aZ5"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+
+    <!-- Custom JavaScript for Form Submission -->
+    <script>
+        document.getElementById('strokeForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Input Validation
+            const age = document.getElementById('age').value;
+            const avg_glucose_level = document.getElementById('avg_glucose_level').value;
+            const bmi = document.getElementById('bmi').value;
+
+            if (!age || !avg_glucose_level || !bmi) {
+                document.getElementById("predictionText").innerText = 'Please fill out all required fields.';
+                return;
+            }
+
+            const formData = {
+                gender: document.getElementById('gender').value,
+                age: Number(age),
+                avg_glucose_level: Number(avg_glucose_level),
+                bmi: Number(bmi),
+                ever_married: document.getElementById('ever_married').value,
+                work_type: document.getElementById('work_type').value,
+                residence_type: document.getElementById('residence_type').value,
+                smoking_status: document.getElementById('smoking_status').value,
+                hypertension: document.getElementById('hypertension').value,
+                heart_disease: document.getElementById('heart_disease').value
+            };
+
+            fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById("predictionText").innerText = `Error: ${data.error}`;
+                } else {
+                    const prediction = data.stroke === 1 ? 'High risk of stroke' : 'Low risk of stroke';
+                    const probability = `Probability: ${data.probability.toFixed(2)}%`;
+                    document.getElementById("predictionText").innerText = `${prediction} (${probability})`;
+                    document.getElementById("strokeForm").reset(); // Clear form after submission
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById("predictionText").innerText = 'An error occurred. Please try again.';
+            });
+        });
+    </script>
+</body>
+
+</html>

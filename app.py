@@ -41,16 +41,20 @@ def index():
 
             # Make prediction
             prediction = model.predict(final_features.reshape(1, -1))[0]
+            probability = model.predict_proba(final_features.reshape(1, -1))[0][1]  # Probability of stroke (class 1)
 
             # Prepare result message
-            result = {'stroke': int(prediction)}
+            result = {
+                'stroke': int(prediction),
+                'probability': float(probability) * 100  # Convert to percentage
+            }
             return jsonify(result)
 
         except Exception as e:
             return jsonify({'error': str(e)})
     
-    # Render the form for GET request
-    return render_template('index.html')
+    # Render the correct HTML file for GET request
+    return render_template('Strock.html')
 
 # Run Flask app
 if __name__ == '__main__':

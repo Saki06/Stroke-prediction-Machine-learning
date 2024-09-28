@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stroke Prediction Website</title>
+    <style>
+        /* CSS Variables for Theme Colors */
+        :root {
+            --primary-color: #2f3f30;
+            --secondary-color: #f5f5f5;
+            --accent-color: #094a78;
+            --text-color: #333;
+            --light-color: #fff;
+            --border-radius: 8px;
+        }
+
+        /* Reset browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-image: url('../static/image/Predict.jpg'); /* Your background image here */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            animation: moveBackground 30s linear infinite; /* Add background animation */
+        }
+
+        @keyframes moveBackground {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--accent-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Animation for page transitions */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea,
+        button {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            grid-column: span 2;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--light-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .modal-content p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .close-btn {
+            background-color: var(--accent-color);
+            color: var(--light-color);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+    </style>
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.style.display = 'none');
+            document.getElementById(pageId).style.display = 'block';
+        }
+
+        window.onload = function () {
+            showPage('homePage');
+        }
+
+        async function predictStroke() {
+            const age = parseFloat(document.getElementById('age').value);
+            const avgGlucoseLevel = parseFloat(document.getElementById('avg_glucose_level').value);
+            const bmi = parseFloat(document.getElementById('bmi').value);
+            const gender = parseInt(document.getElementById('gender').value);
+            const everMarried = parseInt(document.getElementById('ever_married').value);
+            const workType = parseInt(document.getElementById('work_type').value);
+            const residenceType = parseInt(document.getElementById('residence_type').value);
+            const smokingStatus = parseInt(document.getElementById('smoking_status').value);
+            const hypertension = parseInt(document.getElementById('hypertension').value);
+            const heartDisease = parseInt(document.getElementById('heart_disease').value);
+
+            if (isNaN(age) || isNaN(avgGlucoseLevel) || isNaN(bmi) ||
+                isNaN(gender) || isNaN(everMarried) || isNaN(workType) ||
+                isNaN(residenceType) || isNaN(smokingStatus) ||
+                isNaN(hypertension) || isNaN(heartDisease)) {
+                showModal('Please fill in all fields correctly.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        age,
+                        avg_glucose_level: avgGlucoseLevel,
+                        bmi,
+                        gender,
+                        ever_married: everMarried,
+                        work_type: workType,
+                        residence_type: residenceType,
+                        smoking_status: smokingStatus,
+                        hypertension,
+                        heart_disease: heartDisease
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                const resultMessage = data.stroke === 0
+                    ? 'Low risk of stroke. Probability: ' + data.probability.toFixed(2) + '%'
+                    : 'High risk of stroke. Probability: ' + data.probability.toFixed(2) + '%';
+                showModal(resultMessage);
+            } catch (error) {
+                showModal('An error occurred: ' + error.message);
+            }
+        }
+
+        function showModal(message) {
+            const modal = document.getElementById('resultModal');
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerText = message;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('resultModal');
+            modal.style.display = 'none';
+        }
+
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="javascript:void(0);" onclick="showPage('homePage')">Home</a></li>
+                <li><a href="javascript:void(0);" onclick="showPage('predictionPage')">Predict Stroke</a></li>
+                <li><a href="javascript:void(0);" onclick="showPage('aboutPage')">About Strokes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <section id="homePage" class="page">
+        <div class="container">
+            <h1>Welcome to Stroke Prediction</h1>
+            <p>Our tool helps you assess your stroke risk based on important health indicators. Get early insights and take preventive action.</p>
+        </div>
+    </section>
+
+    <!-- Prediction Page -->
+    <section id="predictionPage" class="page">
+        <div class="container">
+            <h1>Predict Stroke</h1>
+            <form>
+                <div>
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+                <div>
+                    <label for="avg_glucose_level">Avg Glucose Level:</label>
+                    <input type="number" id="avg_glucose_level" name="avg_glucose_level" required>
+                </div>
+                <div>
+                    <label for="bmi">BMI:</label>
+                    <input type="number" id="bmi" name="bmi" required>
+                </div>
+                <div>
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="0">Male</option>
+                        <option value="1">Female</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="ever_married">Ever Married:</label>
+                    <select id="ever_married" name="ever_married" required>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="work_type">Work Type:</label>
+                    <select id="work_type" name="work_type" required>
+                        <option value="0">Private</option>
+                        <option value="1">Self-employed</option>
+                        <option value="2">Govt job</option>
+                        <option value="3">Children</option>
+                        <option value="4">Never worked</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="residence_type">Residence Type:</label>
+                    <select id="residence_type" name="residence_type" required>
+                        <option value="0">Urban</option>
+                        <option value="1">Rural</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="smoking_status">Smoking Status:</label>
+                    <select id="smoking_status" name="smoking_status" required>
+                        <option value="0">Formerly smoked</option>
+                        <option value="1">Never smoked</option>
+                        <option value="2">Smokes</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="hypertension">Hypertension:</label>
+                    <select id="hypertension" name="hypertension" required>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="heart_disease">Heart Disease:</label>
+                    <select id="heart_disease" name="heart_disease" required>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+
+                <!-- Button Centered with Flexbox -->
+                <div class="button-container">
+                    <button type="button" onclick="predictStroke()">Predict Stroke</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="aboutPage" class="page">
+        <div class="container">
+            <h1>About Strokes</h1>
+            <p>Strokes occur when blood flow to a part of the brain is interrupted or reduced, preventing brain tissue from getting oxygen and nutrients. Understanding the risk factors can help in taking preventive measures.</p>
+        </div>
+    </section>
+
+    <!-- Modal for displaying prediction result -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <p id="modalContent"></p>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+</body>
+
+</html>
