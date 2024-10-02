@@ -212,6 +212,7 @@
                     <option value="1">Formerly smoked</option>
                     <option value="2">Never smoked</option>
                     <option value="3">Smokes</option>
+                    <option value="4">Unknown</option>
                 </select>
             </div>
             <div class="mb-3">
@@ -246,59 +247,98 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+    
+        
 
-    <!-- Custom JavaScript for Form Submission -->
-    <script>
-        document.getElementById('strokeForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+ <!-- SweetAlert2 CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            // Input Validation
-            const age = document.getElementById('age').value;
-            const avg_glucose_level = document.getElementById('avg_glucose_level').value;
-            const bmi = document.getElementById('bmi').value;
+<!-- Modify the existing JavaScript for Form Submission -->
+<script>
+    document.getElementById('strokeForm').addEventListener('submit', function (e) {
+    e.preventDefault();
 
-            if (!age || !avg_glucose_level || !bmi) {
-                document.getElementById("predictionText").innerText = 'Please fill out all required fields.';
-                return;
-            }
+    // Input Validation
+    const age = document.getElementById('age').value;
+    const avg_glucose_level = document.getElementById('avg_glucose_level').value;
+    const bmi = document.getElementById('bmi').value;
 
-            const formData = {
-                gender: document.getElementById('gender').value,
-                age: Number(age),
-                avg_glucose_level: Number(avg_glucose_level),
-                bmi: Number(bmi),
-                ever_married: document.getElementById('ever_married').value,
-                work_type: document.getElementById('work_type').value,
-                residence_type: document.getElementById('residence_type').value,
-                smoking_status: document.getElementById('smoking_status').value,
-                hypertension: document.getElementById('hypertension').value,
-                heart_disease: document.getElementById('heart_disease').value
-            };
-
-            fetch('/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    document.getElementById("predictionText").innerText = `Error: ${data.error}`;
-                } else {
-                    const prediction = data.stroke === 1 ? 'High risk of stroke' : 'Low risk of stroke';
-                    const probability = `Probability: ${data.probability.toFixed(2)}%`;
-                    document.getElementById("predictionText").innerText = `${prediction} (${probability})`;
-                    document.getElementById("strokeForm").reset(); // Clear form after submission
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById("predictionText").innerText = 'An error occurred. Please try again.';
-            });
+    if (!age || !avg_glucose_level || !bmi) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please fill out all required fields!'
         });
-    </script>
+        return;
+    }
+
+    const formData = {
+        gender: document.getElementById('gender').value,
+        age: Number(age),
+        avg_glucose_level: Number(avg_glucose_level),
+        bmi: Number(bmi),
+        ever_married: document.getElementById('ever_married').value,
+        work_type: document.getElementById('work_type').value,
+        residence_type: document.getElementById('residence_type').value,
+        smoking_status: document.getElementById('smoking_status').value,
+        hypertension: document.getElementById('hypertension').value,
+        heart_disease: document.getElementById('heart_disease').value
+    };
+
+    fetch('/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: `Error: ${data.error}`
+            });
+        } else {
+            const prediction = data.stroke === 1 ? 'High risk of stroke' : 'Low risk of stroke';
+            const probability = `Probability: ${data.probability.toFixed(2)}%`;
+
+            // Show green alert for High risk, red alert for Low risk
+            if (data.stroke === 1) {
+                // High risk: Green alert
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'High Risk of Stroke',
+                    text: `${probability}`,
+                    iconColor: '#dc3545 ',
+                    confirmButtonColor: '#dc3545 '
+                });
+            } else {
+                // Low risk: Red alert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Low Risk of Stroke',
+                    text: `${probability}`,
+                    iconColor: '#28a745',
+                    confirmButtonColor: '#28a745'
+                });
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred. Please try again.'
+        });
+    });
+});
+
+</script>
+
 </body>
 
 </html>
