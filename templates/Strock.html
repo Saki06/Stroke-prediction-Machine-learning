@@ -15,7 +15,7 @@
     <!-- Embedded CSS for Styling -->
     <style>
         body {
-            background-color: #f7f7f7;
+            background-color: #206891;
             font-family: 'Arial', sans-serif;
         }
 
@@ -156,84 +156,89 @@
             <p class="text-muted"><b>A stroke occurs when the blood supply to part of your brain is interrupted, preventing brain tissue from getting oxygen and nutrients. Brain cells begin to die in minutes.</b></p>
             <p class="text-danger" id="predictionText"></p>
         </div>
-        <form id="strokeForm">
-            <div class="mb-3">
-                <label for="gender" class="form-label">Gender</label>
-                <select class="form-select" id="gender" name="gender">
-                    <option value="0">-- select gender --</option>
-                    <option value="1">Male</option>
-                    <option value="2">Female</option>
-                    <option value="3">Other</option>
-                </select>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5"> <!-- Adjust width with col-md and col-lg classes -->
+                <form id="strokeForm">
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="gender" name="gender">
+                            <option value="0">-- select gender --</option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="age" class="form-label">Enter Age</label>
+                        <input type="text" class="form-control" id="age" name="age" placeholder="Age">
+                    </div>
+                    <div class="mb-3">
+                        <label for="avg_glucose_level" class="form-label">Average Glucose Level</label>
+                        <input type="text" class="form-control" id="avg_glucose_level" name="avg_glucose_level" placeholder="Avg Glucose Level">
+                    </div>
+                    <div class="mb-3">
+                        <label for="bmi" class="form-label">Body Mass Index (BMI)</label>
+                        <input type="text" class="form-control" id="bmi" name="bmi" placeholder="BMI">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ever_married" class="form-label">Ever Married</label>
+                        <select class="form-select" id="ever_married" name="ever_married">
+                            <option value="0">-- select --</option>
+                            <option value="1">Yes</option>
+                            <option value="2">No</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="work_type" class="form-label">Work Type</label>
+                        <select class="form-select" id="work_type" name="work_type">
+                            <option value="0">-- select --</option>
+                            <option value="1">Private</option>
+                            <option value="2">Self-employed</option>
+                            <option value="3">Government job</option>
+                            <option value="4">Children</option>
+                            <option value="5">Never worked</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="residence_type" class="form-label">Residence Type</label>
+                        <select class="form-select" id="residence_type" name="residence_type">
+                            <option value="0">-- select --</option>
+                            <option value="1">Urban</option>
+                            <option value="2">Rural</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="smoking_status" class="form-label">Smoking Status</label>
+                        <select class="form-select" id="smoking_status" name="smoking_status">
+                            <option value="0">-- select --</option>
+                            <option value="1">Formerly smoked</option>
+                            <option value="2">Never smoked</option>
+                            <option value="3">Smokes</option>
+                            <option value="4">Unknown</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="hypertension" class="form-label">Hypertension</label>
+                        <select class="form-select" id="hypertension" name="hypertension">
+                            <option value="0">-- select --</option>
+                            <option value="1">Yes</option>
+                            <option value="2">No</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="heart_disease" class="form-label">Heart Disease</label>
+                        <select class="form-select" id="heart_disease" name="heart_disease">
+                            <option value="0">-- select --</option>
+                            <option value="1">Yes</option>
+                            <option value="2">No</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Predict Stroke</button>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="age" class="form-label">Enter Age</label>
-                <input type="text" class="form-control" id="age" name="age" placeholder="Age">
-            </div>
-            <div class="mb-3">
-                <label for="avg_glucose_level" class="form-label">Average Glucose Level</label>
-                <input type="text" class="form-control" id="avg_glucose_level" name="avg_glucose_level" placeholder="Avg Glucose Level">
-            </div>
-            <div class="mb-3">
-                <label for="bmi" class="form-label">Body Mass Index (BMI)</label>
-                <input type="text" class="form-control" id="bmi" name="bmi" placeholder="BMI">
-            </div>
-            <div class="mb-3">
-                <label for="ever_married" class="form-label">Ever Married</label>
-                <select class="form-select" id="ever_married" name="ever_married">
-                    <option value="0">-- select --</option>
-                    <option value="1">Yes</option>
-                    <option value="2">No</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="work_type" class="form-label">Work Type</label>
-                <select class="form-select" id="work_type" name="work_type">
-                    <option value="0">-- select --</option>
-                    <option value="1">Private</option>
-                    <option value="2">Self-employed</option>
-                    <option value="3">Government job</option>
-                    <option value="4">Children</option>
-                    <option value="5">Never worked</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="residence_type" class="form-label">Residence Type</label>
-                <select class="form-select" id="residence_type" name="residence_type">
-                    <option value="0">-- select --</option>
-                    <option value="1">Urban</option>
-                    <option value="2">Rural</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="smoking_status" class="form-label">Smoking Status</label>
-                <select class="form-select" id="smoking_status" name="smoking_status">
-                    <option value="0">-- select --</option>
-                    <option value="1">Formerly smoked</option>
-                    <option value="2">Never smoked</option>
-                    <option value="3">Smokes</option>
-                    <option value="4">Unknown</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="hypertension" class="form-label">Hypertension</label>
-                <select class="form-select" id="hypertension" name="hypertension">
-                    <option value="0">-- select --</option>
-                    <option value="1">Yes</option>
-                    <option value="2">No</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="heart_disease" class="form-label">Heart Disease</label>
-                <select class="form-select" id="heart_disease" name="heart_disease">
-                    <option value="0">-- select --</option>
-                    <option value="1">Yes</option>
-                    <option value="2">No</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Predict Stroke</button>
-        </form>
+        </div>
     </div>
+    
 
     <!-- Footer -->
     <footer>
