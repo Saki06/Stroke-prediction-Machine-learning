@@ -8,7 +8,7 @@
 # gunicorn==20.1.0
 
 Flask==3.0.3
-inja2==3.1.4
+Jinja2==3.1.4
 MarkupSafe==2.1.5
 Werkzeug==3.0.4
 blinker==1.8.2
