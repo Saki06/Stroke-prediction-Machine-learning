@@ -1,9 +1,8 @@
+
+scikit-learn==1.0
 Flask==2.0.2
 pandas==1.3.3
-Flask==2.0.2
-numpy==1.21.2
-scikit-learn==1.0
-Flask==2.0.2
-gunicorn==20.1.0
-numpy==1.23.5  # Ensure numpy is listed here
-scikit-learn==1.0
+numpy==1.21.2  # Adjust this to a compatible version if needed
+setuptools>=51.0.0
+wheel==0.36.2
+gunicorn==20.1.0  # If you're using Gunicorn as the WSGI server
