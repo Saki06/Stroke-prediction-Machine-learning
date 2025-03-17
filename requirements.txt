@@ -79,7 +79,6 @@ python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 python-Levenshtein==0.26.0
 pytz==2024.2
-pywin32==310
 pyzmq==26.2.0
 RapidFuzz==3.10.0
 referencing==0.35.1
