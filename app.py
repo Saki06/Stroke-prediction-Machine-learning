@@ -9,7 +9,7 @@ model = pickle.load(open('./rf_model.pkl', 'rb'))
 scaler = pickle.load(open('./scaler.pkl', 'rb'))
 
 # Initialize Flask app
-app = Flask(__name__)
+app = Flask(__name__,template_folder="templates")
 
 # Define the prediction route
 @app.route('/', methods=['GET', 'POST'])
