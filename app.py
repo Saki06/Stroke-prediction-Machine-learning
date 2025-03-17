@@ -55,7 +55,7 @@ def index():
             return jsonify({'error': str(e)})
     
     # Render the correct HTML file for GET request
-    return render_template('stroke1.html')
+    return render_template('index.html')
 
 # Run Flask app
 if __name__ == '__main__':
