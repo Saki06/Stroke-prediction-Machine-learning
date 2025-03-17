@@ -2,7 +2,9 @@ from flask import Flask, render_template, request, jsonify
 import numpy as np
 import pickle
 import warnings
+
 warnings.filterwarnings("ignore", category=UserWarning, module='sklearn')
+
 
 # Load the pre-trained RandomForest model and scaler
 model = pickle.load(open('./rf_model.pkl', 'rb'))
