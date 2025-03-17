@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stroke Prediction</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+
+    <header>
+        <div class="logo">StrokePredict</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#about-stroke">About Stroke</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#prediction-tool">Prediction Tool</a></li>
+                <li><a href="#footer">Contact</a></li>
+               <!--  <li><a href="#" class="btn">Sign In</a></li>-->
+            </ul>
+        </nav>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Know Your Risk. <br> Predict & Prevent Stroke Today!</h1>
+            <p>Our advanced AI-powered tool empowers you to assess your stroke risk with precision, providing valuable insights to help you take proactive steps towards a healthier, more vibrant future.</p>
+            <a href="#prediction-tool" class="cta-btn">Check Your Risk Now</a>
+        </div>
+        <div class="hero-image">
+            <img src="/static/image/stroke.jpeg" alt="Stroke Prediction AI">
+            <!-- <img src="/static/image/stroke1.jpeg" alt="Stroke Prediction AI"> -->
+        </div>
+        
+    </section>
+    <!-- About Stroke Section -->
+    <section class="about-stroke" id="about-stroke">
+        <div class="container">
+            <h2>Understanding Stroke</h2>
+            <p>Learn about the causes, symptoms, and risk factors associated with stroke.</p>
+
+            <div class="stroke-info">
+                <div class="info-box">
+                    <i class="fas fa-brain"></i>
+                    <h3>What is a Stroke?</h3>
+                    <p>A stroke occurs when blood flow to the brain is blocked, leading to brain damage.</p>
+                </div>
+
+                <div class="info-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Common Symptoms</h3>
+                    <p>Symptoms include sudden numbness, confusion, trouble speaking, or severe headache.</p>
+                </div>
+
+                <div class="info-box">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Risk Factors</h3>
+                    <p>High blood pressure, smoking, heart_disease, and obesity increase stroke risk.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <p>Follow these 3 simple steps to check your stroke risk.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <i class="fas fa-user-edit"></i>
+                    <h3>Step 1</h3>
+                    <p>Enter your health details like age, BMI, heart_disease, and lifestyle habits.</p>
+                </div>
+
+                <div class="step">
+                    <i class="fas fa-microscope"></i>
+                    <h3>Step 2</h3>
+                    <p>Our AI model analyzes your inputs and predicts your stroke risk.</p>
+                </div>
+
+                <div class="step">
+                    <i class="fas fa-heart"></i>
+                    <h3>Step 3</h3>
+                    <p>Get instant results along with personalized health recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prediction Tool Section -->
+    <section class="prediction-tool" id="prediction-tool">
+        <div class="container">
+            <h2>Stroke Risk Prediction</h2>
+            <p>Enter your details below to check your stroke risk.</p>
+
+            <form id="prediction-form" class="prediction-form">
+                <div class="form-group">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select class="form-select" id="gender" name="gender">
+                        <option value="0">-- select gender --</option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                        <option value="3">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" placeholder="Enter your age" required>
+                </div>
+                <div class="form-group">
+                    <label for="avg_glucose_level" class="form-label">Average Glucose Level</label>
+                    <input type="text" class="form-control" id="avg_glucose_level" name="avg_glucose_level" placeholder="Avg Glucose Level">
+                </div>
+                <div class="form-group">
+                    <label for="bmi">BMI:</label>
+                    <input type="number" id="bmi" name="bmi" placeholder="Enter your BMI" required>
+                </div>
+                <div class="form-group">
+                    <label for="ever_married" class="form-label">Ever Married</label>
+                    <select class="form-select" id="ever_married" name="ever_married">
+                        <option value="0">-- select --</option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="work_type" class="form-label">Work Type</label>
+                    <select class="form-select" id="work_type" name="work_type">
+                        <option value="0">-- select --</option>
+                        <option value="1">Private</option>
+                        <option value="2">Self-employed</option>
+                        <option value="3">Government job</option>
+                        <option value="4">Children</option>
+                        <option value="5">Never worked</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="residence_type" class="form-label">Residence Type</label>
+                    <select class="form-select" id="residence_type" name="residence_type">
+                        <option value="0">-- select --</option>
+                        <option value="1">Urban</option>
+                        <option value="2">Rural</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="smoking">Smoking Status:</label>
+                    <select id="smoking" name="smoking">
+                        <option value="0">-- select --</option>
+                        <option value="1">Formerly smoked</option>
+                        <option value="2">Never smoked</option>
+                        <option value="3">Smokes</option>
+                        <option value="4">Unknown</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="hypertension" class="form-label">Hypertension</label>
+                    <select class="form-select" id="hypertension" name="hypertension">
+                        <option value="0">-- select --</option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="heart_disease" class="form-label">Heart Disease</label>
+                    <select class="form-select" id="heart_disease" name="heart_disease">
+                        <option value="0">-- select --</option>
+                        <option value="1">Yes</option>
+                        <option value="2">No</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="predict-btn">Check Your Risk</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2>Success Stories</h2>
+            <p>See what our users have to say about our stroke prediction tool.</p>
+
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <img src="user1.jpg" alt="User 1">
+                    <h3>Sarah Thompson</h3>
+                    <p>"This tool helped me realize my stroke risk early, and I took the right steps to stay healthy!"</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <img src="user2.jpg" alt="User 2">
+                    <h3>Michael Lee</h3>
+                    <p>"A life-saving innovation! The prediction was accurate, and I consulted my doctor immediately."</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <img src="user3.jpg" alt="User 3">
+                    <h3>Emily Davis</h3>
+                    <p>"Easy to use and very informative. Highly recommended for those who want to monitor their health."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call-to-Action Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Take Control of Your Health Today</h2>
+            <p>Check your stroke risk now and get personalized recommendations to stay healthy.</p>
+            <a href="#prediction-tool" class="cta-btn">Check Your Risk</a>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Stroke Predictor</h2>
+                    <p>Empowering you with early stroke risk assessment.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#about-stroke">About</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#prediction-tool">Prediction Tool</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: sakiththiyant.com</p>
+                    <p>Phone: 0771234567</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 Stroke Predictor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<!-- Modify the existing JavaScript for Form Submission -->
+<script>
+  // Modify the form submission JavaScript with dark theme style for Swal.fire
+document.getElementById('prediction-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Input Validation
+    const age = document.getElementById('age').value;
+    const avg_glucose_level = document.getElementById('avg_glucose_level').value;
+    const bmi = document.getElementById('bmi').value;
+
+    if (!age || !avg_glucose_level || !bmi) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please fill out all required fields!',
+            background: '#333', // Dark background
+            color: '#fff', // White text color
+            confirmButtonColor: '#28a745', // Green button for OK
+            customClass: {
+                popup: 'dark-popup', // Custom class for popup
+            }
+        });
+        return;
+    }
+
+    // Collect form data
+    const formData = {
+        gender: document.getElementById('gender').value,
+        age: Number(age),
+        avg_glucose_level: Number(avg_glucose_level),
+        bmi: Number(bmi),
+        ever_married: document.getElementById('ever_married').value,
+        work_type: document.getElementById('work_type').value,
+        residence_type: document.getElementById('residence_type').value,
+        smoking_status: document.getElementById('smoking').value,
+        hypertension: document.getElementById('hypertension').value,
+        heart_disease: document.getElementById('heart_disease').value
+    };
+
+    // Make the API call to Flask backend
+    fetch('/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData) // Send the form data as JSON
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Response Data:', data);
+
+        // Check if there was an error from the server
+        if (data.error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: `Error: ${data.error}`,
+                background: '#333',
+                color: '#fff',
+                confirmButtonColor: '#dc3545', // Red button for errors
+                customClass: {
+                    popup: 'dark-popup',
+                }
+            });
+        } else {
+            const prediction = data.stroke === 1 ? 'High risk of stroke' : 'Low risk of stroke';
+            const probability = `Probability: ${data.probability.toFixed(2)}%`;
+
+            Swal.fire({
+                icon: data.stroke === 1 ? 'warning' : 'success',
+                title: data.stroke === 1 ? 'High Risk of Stroke' : 'Low Risk of Stroke',
+                // text: `${probability}`,
+                iconColor: data.stroke === 1 ? '#dc3545' : '#28a745',
+                background: '#333',
+                color: '#fff',
+                confirmButtonColor: data.stroke === 1 ? '#dc3545' : '#28a745',
+                customClass: {
+                    popup: 'dark-popup',
+                }
+            });
+        }
+
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred. Please try again.',
+            background: '#333',
+            color: '#fff',
+            confirmButtonColor: '#dc3545',
+            customClass: {
+                popup: 'dark-popup',
+            }
+        });
+    });
+});
+
+</script>
+
+
+
+</body>
+</html>

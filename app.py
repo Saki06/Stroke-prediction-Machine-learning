@@ -16,7 +16,7 @@ app = Flask(__name__)
 def index():
     if request.method == 'POST':
         try:
-            # Get user inputs
+            # Get user inputs from JSON data
             data = request.json
             age = float(data['age'])
             avg_glucose_level = float(data['avg_glucose_level'])
@@ -48,13 +48,14 @@ def index():
                 'stroke': int(prediction),
                 'probability': float(probability) * 100  # Convert to percentage
             }
+            print(result)  # Log the result
             return jsonify(result)
 
         except Exception as e:
             return jsonify({'error': str(e)})
     
     # Render the correct HTML file for GET request
-    return render_template('Strock.html')
+    return render_template('stroke1.html')
 
 # Run Flask app
 if __name__ == '__main__':
